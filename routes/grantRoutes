@@ -1,0 +1,21 @@
+// server/routes/grantRoutes.js
+const express = require("express");
+const {
+  getAllGrants,
+  createGrant,
+  updateGrant,
+  deleteGrant,
+} = require("../controllers/grantController");
+const { protect } = require("../middlewares/authMiddleware");
+
+const router = express.Router();
+
+// Public Routes
+router.get("/", getAllGrants); // Fetch all grants
+
+// Private Routes
+router.post("/", protect, createGrant); // Create a new grant (requires login)
+router.put("/:id", protect, updateGrant); // Update an existing grant
+router.delete("/:id", protect, deleteGrant); // Delete a grant
+
+module.exports = router;
